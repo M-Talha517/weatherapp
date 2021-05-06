@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 import 'package:weatherapp/Models/cities.dart';
 import 'package:weatherapp/Models/forecasts.dart';
 import 'package:weatherapp/Models/screenselection.dart';
-import 'package:weatherapp/Models/user.dart';
 import 'package:weatherapp/Services/APIs.dart';
 import 'package:weatherapp/Services/firebase.dart';
 
@@ -23,8 +22,7 @@ class _SelectCityState extends State<SelectCity> {
   @override
   Widget build(BuildContext context) {
     ScreenSelector screenSelector = Provider.of<ScreenSelector>(context);
-    CurrUser currUser = Provider.of<CurrUser>(context);
-    Database db = Database(currUser);
+    Database db = Database();
     
 
     Future<void> loadData(int index,void Function(int) ontap) async {
@@ -36,9 +34,6 @@ class _SelectCityState extends State<SelectCity> {
         
         print("Daily");
         List<DailyForecast> dailyForecast= await getDailyForecast(displayedcities[index].key);
-        print(displayedcities);
-        print(displayedcities[index].key);
-
         
         FullWeatherReport report = FullWeatherReport(city: displayedcities[index], daily: dailyForecast.sublist(1), hourly: hourlyForecast.sublist(1) );
         screenSelector.setReport(report);
@@ -46,8 +41,6 @@ class _SelectCityState extends State<SelectCity> {
         print('dismissed loading');
         widget.ontap(1);
         db.addCity(displayedcities[index]);
-        
-        
       } catch (e) {
         EasyLoading.showError("FAILED TO FETCH DATA ONLINE");
         print("FAILED TO FETCH DATA ONLINE");
@@ -133,8 +126,7 @@ class _SelectCityState extends State<SelectCity> {
             ),
           ],
         ),
-      ),
-      
+      ),  
     );
   }
 }

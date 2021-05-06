@@ -38,15 +38,15 @@ class Authentication{
 
 
 class Database{
-  final CurrUser currUser;
-  Database(this.currUser);
-  final CollectionReference user = FirebaseFirestore.instance.collection('users');
-  
   Future addCity(City city) async{
-    return await user.doc(currUser.uid).set({
-      "cityName": city.cityName, 
-      "key" : city.key, 
-      "countryName" : city.countryName, 
-    });
+    CollectionReference user = FirebaseFirestore.instance.collection('users');
+    String uid = FirebaseAuth.instance.currentUser.uid;
+    if (FirebaseAuth.instance.currentUser.uid != null){
+      await user.doc(uid).collection('Cities').doc(city.cityName).set({
+        "cityName": city.cityName, 
+        "key" : city.key, 
+        "countryName" : city.countryName, 
+      });
+    }
   }
 }

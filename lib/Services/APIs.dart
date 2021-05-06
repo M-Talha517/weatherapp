@@ -8,7 +8,7 @@ final apikey = ['HiSLpOOIq8oZuDpncGXJjZ1EaSPrRxT8','Ka6dkhmS3sZxIaPKBzxblceZVAiQ
 
 Future getListOfCities() async{ 
   final response = await http.post(
-    Uri.parse('http://dataservice.accuweather.com/locations/v1/topcities/150?apikey=${apikey[1]}'),
+    Uri.parse('https://dataservice.accuweather.com/locations/v1/topcities/150?apikey=${apikey[1]}'),
     headers: {}
   );
   List listOfJsonData = jsonDecode(response.body);
@@ -18,7 +18,7 @@ Future getListOfCities() async{
 
 Future getHourlyForecast(String cityKey) async{
   final response = await http.post(
-    Uri.parse('http://dataservice.accuweather.com/forecasts/v1/hourly/12hour/$cityKey?apikey=${apikey[1]}'),
+    Uri.parse('https://dataservice.accuweather.com/forecasts/v1/hourly/12hour/$cityKey?apikey=${apikey[1]}'),
     headers: {}
   );
   List listOfJsonData = jsonDecode(response.body);
@@ -29,7 +29,7 @@ Future getHourlyForecast(String cityKey) async{
 
 Future getDailyForecast(String cityKey) async{
   final response = await http.post(
-    Uri.parse('http://dataservice.accuweather.com/forecasts/v1/daily/5day/$cityKey?apikey=${apikey[1]}'),
+    Uri.parse('https://dataservice.accuweather.com/forecasts/v1/daily/5day/$cityKey?apikey=${apikey[1]}'),
     headers: {}
   );
   List listOfJsonData = jsonDecode(response.body)["DailyForecasts"];
